@@ -10,8 +10,6 @@ export default function Page() {
   );
 }
 
-// This function is required for static site generation with dynamic routes,
-// but since this page doesn't use any dynamic params, it returns an empty array.
-export async function generateStaticParams() {
-  return [];
+export function generateStaticParams() {
+  return [ { slug: [""] } ]
 }
