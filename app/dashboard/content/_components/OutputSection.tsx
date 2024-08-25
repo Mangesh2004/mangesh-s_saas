@@ -1,6 +1,4 @@
-import React, { useEffect, useRef } from 'react';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { Editor } from '@toast-ui/react-editor';
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 
@@ -9,24 +7,12 @@ interface Props {
 }
 
 export default function OutputSection({ AiOutput }: Props) {
-  const editorRef = useRef<Editor | null>(null);
-
-  useEffect(() => {
-    const editorInstance = editorRef.current?.getInstance();
-    if (editorInstance) {
-      editorInstance.setMarkdown(AiOutput);
-    }
-  }, [AiOutput]);
-
   const handleCopy = async () => {
-    if (editorRef.current) {
-      const markdownContent = editorRef.current.getInstance().getMarkdown();
-      try {
-        await navigator.clipboard.writeText(markdownContent);
-        alert('Content copied to clipboard!');
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
-      }
+    try {
+      await navigator.clipboard.writeText(AiOutput);
+      alert('Content copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
     }
   };
 
@@ -38,13 +24,9 @@ export default function OutputSection({ AiOutput }: Props) {
           <Copy /> Copy
         </Button>
       </div>
-      <Editor
-        ref={editorRef}
-        initialValue="Your result will appear here"
-        height="600px"
-        initialEditType="wysiwyg"
-        useCommandShortcut={true}
-      />
+      <div className="p-5">
+        <p>{AiOutput}</p>
+      </div>
     </div>
   );
 }
