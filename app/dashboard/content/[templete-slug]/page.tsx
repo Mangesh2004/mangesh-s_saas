@@ -60,3 +60,8 @@ export default function CreateNewContent({ params }: PROPS) {
         </div>
     )
 }
+
+export async function generateStaticParams() {
+    const templateSlugs = Templete.map((item) => ({ 'templete-slug': item.slug }));
+    return templateSlugs;
+}
