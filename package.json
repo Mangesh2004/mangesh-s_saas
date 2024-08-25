@@ -5,7 +5,7 @@
   "scripts": {
     
     "dev": "next dev",
-    "preinstall": "npm install --legacy-peer-deps || npm install --force",
+    "preinstall": "npm install --force",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
