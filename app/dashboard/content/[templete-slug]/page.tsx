@@ -60,3 +60,6 @@ export default function CreateNewContent({ params }: PROPS) {
         </div>
     )
 }
+export function generateStaticParams() {
+  return [ { slug: [""] } ]
+}
