@@ -7,7 +7,6 @@ export default function Page() {
     </div>
   );
 }
-
 export function generateStaticParams() {
-  return [{ slug: [""] }];
+  return [ { slug: [""] } ]
 }
