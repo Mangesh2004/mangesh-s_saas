@@ -64,3 +64,6 @@ export default function CreateNewContent(props:PROPS) {
     </div>
   )
 }
+export async function generateStaticParams() {
+  return [];
+}
