@@ -11,10 +11,11 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center bg-black text-white">
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-slate-600 via-violet-700 to-blue-600 text-white">
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-8">Welcome to Our Service</h1>
-        <Button onClick={handleLoginClick} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <h1 className="text-4xl font-bold ">Welcome to my SAAS application </h1>
+        <h3 className='text-white p-5'>Devoloped by Mangesh Waybhase</h3>
+        <Button onClick={handleLoginClick} className="bg-transparent border rounded-lg hover:bg-white text-white hover:text-black font-bold py-2 px-4 ">
           Log In
         </Button>
       </div>

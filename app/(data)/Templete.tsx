@@ -1,4 +1,4 @@
-export default [
+const data= [
     {
         name:"Blog",
         desc:"An AI tool that converts your provided prompt to a blog",
@@ -351,4 +351,5 @@ export default [
     },
 
 
-]
+];
+export default data;

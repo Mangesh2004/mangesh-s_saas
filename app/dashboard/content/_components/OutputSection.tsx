@@ -18,9 +18,15 @@ export default function OutputSection({ AiOutput }: Props) {
     }
   }, [AiOutput]);
 
-  const handleOnChange = () => {
+  const handleCopy = async () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getInstance().getMarkdown());
+      const markdownContent = editorRef.current.getInstance().getMarkdown();
+      try {
+        await navigator.clipboard.writeText(markdownContent);
+        alert('Content copied to clipboard!');
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
     }
   };
 
@@ -28,7 +34,7 @@ export default function OutputSection({ AiOutput }: Props) {
     <div className="shadow-lg border rounded-lg">
       <div className="flex justify-between items-center p-5">
         <h2>Your result</h2>
-        <Button>
+        <Button onClick={handleCopy}>
           <Copy /> Copy
         </Button>
       </div>
@@ -38,7 +44,6 @@ export default function OutputSection({ AiOutput }: Props) {
         height="600px"
         initialEditType="wysiwyg"
         useCommandShortcut={true}
-        onChange={handleOnChange}
       />
     </div>
   );
