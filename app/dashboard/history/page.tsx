@@ -20,19 +20,12 @@ const HistoryPage: React.FC = () => {
 
   useEffect(() => {
     const fetchHistory = async () => {
-      if (!user?.id) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const historyData:any = await getUserHistory(user.id);
+      if (user?.primaryEmailAddress?.emailAddress) {
+        const userEmail = user.primaryEmailAddress.emailAddress;
+        const historyData:any = await getUserHistory(userEmail);
         setHistory(historyData);
-      } catch (error) {
-        console.error('Failed to fetch history:', error);
-      } finally {
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchHistory();
