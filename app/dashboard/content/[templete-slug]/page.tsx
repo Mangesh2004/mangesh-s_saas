@@ -32,17 +32,17 @@ export default function CreateNewContent({ params }: PROPS) {
     const result = await chatSession.sendMessage(finalPrompt);
     const aiResponse = await result?.response.text();
     setAiOutput(aiResponse);
-    await SaveInDB(formData, selectedTemplete?.slug, aiResponse);
+    await SaveInDB(formData, selectedTemplete?.slug, result?.response.text());
     setLoading(false);
   };
 
   const SaveInDB = async (formData: any, slug: string | undefined, AiOutput: string) => {
-    if (!user) return; // Ensure user is defined before proceeding
+    if (!user) return; 
     const result = await db.insert(schema).values({
       formdata: formData,
       templeteSlug: slug || '',
       aiResponse: AiOutput,
-      createdBy: user.id,
+      createdBy: user?.primaryEmailAddress?.emailAddress || "",
       createdAt: moment().format('DD/MM/YYYY'),
     });
     console.log(result);
