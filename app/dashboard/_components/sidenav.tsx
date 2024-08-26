@@ -1,6 +1,5 @@
 "use client";
 import { FileClock, Home } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";

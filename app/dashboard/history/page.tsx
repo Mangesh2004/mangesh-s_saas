@@ -1,27 +1,46 @@
-"use client";
-import React, { useEffect, useState } from 'react';
-import { useUser } from '@clerk/clerk-react';
-import { getUserHistory } from '@/utils/history'; // Adjust the path if needed
+"use client"
+import { useState, useEffect } from 'react';
+import { useUser } from '@clerk/nextjs';
+import { getUserHistory } from '@/utils/history';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
-const HistoryPage = () => {
+interface HistoryEntry {
+  id: number;
+  formdata: string;
+  aiResponse: string;
+  templeteSlug: string;
+  createdAt: string;
+}
+
+const HistoryPage: React.FC = () => {
   const { user } = useUser();
-  const [history, setHistory] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchHistory = async () => {
-      if (user?.primaryEmailAddress?.emailAddress) {
-        const userEmail = user.primaryEmailAddress.emailAddress;
-        const historyData = await getUserHistory(userEmail);
-        setHistory(historyData);
+      if (!user?.id) {
+        setLoading(false);
+        return;
       }
-      setLoading(false);
+
+      try {
+        const historyData:any = await getUserHistory(user.id);
+        setHistory(historyData);
+      } catch (error) {
+        console.error('Failed to fetch history:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchHistory();
   }, [user]);
+
+  if (!user?.id) {
+    return <p>You need to be logged in to view this page.</p>;
+  }
 
   if (loading) {
     return <p>Loading...</p>;
